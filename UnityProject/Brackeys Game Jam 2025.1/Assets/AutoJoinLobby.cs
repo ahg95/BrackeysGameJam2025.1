@@ -40,6 +40,7 @@ public class AutoJoinLobby : MonoBehaviour, INetworkRunnerCallbacks
 
         var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex + 1); // next scene in build order
         await networkRunner.LoadScene(scene, LoadSceneMode.Single, setActiveOnLoad: true, localPhysicsMode: LocalPhysicsMode.Physics3D);
+        networkRunner.ProvideInput = true;
     }
 
     // Fusion Callback Methods
