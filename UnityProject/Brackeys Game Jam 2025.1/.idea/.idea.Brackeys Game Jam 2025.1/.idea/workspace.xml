@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="" />
+    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Abstracts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Enums.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Enums/DestinationColor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Enums/DestinationColor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,26 +25,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "EasyOeds"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;EasyOeds&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ahg95/BrackeysGameJam2025.1.git",
-    "accountId": "e8b231c0-2ad6-42b2-95e5-86f90eb78d89"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ahg95/BrackeysGameJam2025.1.git&quot;,
+    &quot;accountId&quot;: &quot;e8b231c0-2ad6-42b2-95e5-86f90eb78d89&quot;
   }
-}]]></component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/PlayerSpawner.cs" root0="FORCE_HIGHLIGHTING" />
-  </component>
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2tBC8CJhMgwK3qatqIODuB9khm8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,7 +52,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Oeds",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -103,6 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739815919937</updated>
       <workItem from="1739815921558" duration="1338000" />
+      <workItem from="1739825840859" duration="1747000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />
