@@ -7,8 +7,8 @@ namespace _1_Code.Abstracts
     {
         [SerializeField] protected int maxCapacity = 3;
 
-        protected abstract bool AddPassengers(DestinationColor passengerColor, int count = 1);
-        protected abstract bool RemovePassengers(DestinationColor passengerColor, int count = 1);
+        public abstract bool AddPassengers(DestinationColor passengerColor, int count = 1);
+        public abstract bool RemovePassengers(DestinationColor passengerColor, int count = 1);
         
         public bool TransferPassengers(DestinationColor passengerColor, int count, BasePassengerHolder destination) {
             // If this holder has no passengers, cancel.
