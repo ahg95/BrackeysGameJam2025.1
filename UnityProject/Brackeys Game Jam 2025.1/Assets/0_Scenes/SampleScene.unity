@@ -794,7 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b328c2097b48328c23f9dcc2d2cccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 3
+  maxCapacity: 20
   airportColor: 2
   planes: []
   startWithRandomPassengers: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b328c2097b48328c23f9dcc2d2cccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 3
+  maxCapacity: 20
   airportColor: 0
   planes:
   - {fileID: 563101153}

@@ -9,6 +9,7 @@ namespace _1_Code
         private readonly Dictionary<DestinationColor, int> _passenger = new();
         private int _passengerCount = 0;
         public bool IsFull => _passengerCount == maxCapacity;
+        public int RemainingCapacity => maxCapacity - _passengerCount;
 
         public override bool AddPassengers(DestinationColor passengerColor, int count = 1)
         {
