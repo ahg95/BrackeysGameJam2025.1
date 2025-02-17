@@ -29,18 +29,25 @@ public class AutoJoinLobby : MonoBehaviour, INetworkRunnerCallbacks
 
     async void Start()
     {
-        // Start Fusion in client mode and join a lobby
-        await networkRunner.StartGame(new StartGameArgs()
+        try
         {
-            GameMode = GameMode.AutoHostOrClient,
-            PlayerCount = maxPlayers,
-            IsVisible = isRoomVisible,
-            SceneManager = networkRunner.GetComponent<INetworkSceneManager>(),
-        });
+            // Start Fusion in client mode and join a lobby
+            await networkRunner.StartGame(new StartGameArgs()
+            {
+                GameMode = GameMode.AutoHostOrClient,
+                PlayerCount = maxPlayers,
+                IsVisible = isRoomVisible,
+                SceneManager = networkRunner.GetComponent<INetworkSceneManager>(),
+            });
 
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex + 1); // next scene in build order
-        await networkRunner.LoadScene(scene, LoadSceneMode.Single, setActiveOnLoad: true, localPhysicsMode: LocalPhysicsMode.Physics3D);
-        networkRunner.ProvideInput = true;
+            var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex + 1); // next scene in build order
+            await networkRunner.LoadScene(scene, LoadSceneMode.Single, setActiveOnLoad: true, localPhysicsMode: LocalPhysicsMode.Physics3D);
+            networkRunner.ProvideInput = true;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 
     // Fusion Callback Methods
