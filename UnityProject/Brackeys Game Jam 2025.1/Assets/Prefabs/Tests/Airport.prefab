@@ -815,6 +815,7 @@ MonoBehaviour:
   - {fileID: 7489512844405764192}
   startWithRandomPassengers: 1
   passengerList: 
+  passengersDisembarked: {fileID: 11400000, guid: da7c527523ca5fb49b79aec32def1180, type: 2}
 --- !u!114 &3615991603078745186
 MonoBehaviour:
   m_ObjectHideFlags: 0

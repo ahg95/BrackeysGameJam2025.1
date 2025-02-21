@@ -125,13 +125,12 @@ namespace _1_Code
                     if (this != null)
                     {
                         destinationAirport.ProcessPlaneArrival(this);
-                        LandAtAirport(destinationAirport);
                     }
                 });
         }
 
         // Called when the plane lands at an airport.
-        public void LandAtAirport(Airport landingAirport)
+        public void SetCurrentAirport(Airport landingAirport)
         {
             CurrentAirport = landingAirport;
         }

@@ -1,3 +1,5 @@
+using System;
+using _Scripts.Events_system.Event_types;
 using UnityEngine;
 
 namespace _1_Code.Interaction
@@ -14,6 +16,8 @@ namespace _1_Code.Interaction
         /// </summary>
         public Plane SelectedPlane { get; private set; }
 
+        [SerializeField] private VoidGameEvent onNothingClicked;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -22,6 +26,21 @@ namespace _1_Code.Interaction
                 return;
             }
             Instance = this;
+        }
+
+        private void OnEnable()
+        {
+            onNothingClicked?.RegisterListener(DeselectPlane);
+        }
+        private void OnDisable()
+        {
+            onNothingClicked?.UnRegisterListener(DeselectPlane);
+        }
+
+        private void DeselectPlane()
+        {
+            ClearSelection();
+            Debug.Log("Plane deselection: selection cleared.");
         }
 
         /// <summary>
