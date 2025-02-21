@@ -1,42 +1,73 @@
 using System.Collections.Generic;
 using _1_Code.Abstracts;
 using _1_Code.Enums;
+using UnityEngine;
 
 namespace _1_Code
 {
     public class Plane : BasePassengerHolder
     {
-        private readonly Dictionary<DestinationColor, int> _passenger = new();
+        // Uses a dictionary to store how many passengers of each color are onboard.
+        private readonly Dictionary<DestinationColor, int> _passengers = new();
+        
+        [SerializeField] private List<DestinationColor> passengerColors = new();
+        
         private int _passengerCount = 0;
-        public bool IsFull => _passengerCount == maxCapacity;
+        
+        // Whether the plane is full.
+        public bool IsFull => _passengerCount >= maxCapacity;
+        
+        // How many seats are available.
         public int RemainingCapacity => maxCapacity - _passengerCount;
 
+        // Tracks the current airport at which the plane is landed (null if in flight).
+        public Airport CurrentAirport { get; private set; }
+        
+        // Call when the plane lands at an airport.
+        public void LandAtAirport(Airport landingAirport)
+        {
+            CurrentAirport = landingAirport;
+        }
+
+        // Clears the current airport when the plane is sent away.
+        public void DepartAirport()
+        {
+            CurrentAirport = null;
+        }
+
+        // Adds passengers if there is enough capacity.
         public override bool AddPassengers(DestinationColor passengerColor, int count = 1)
         {
-            if (_passenger.ContainsKey(passengerColor))
-            {
-                if (_passenger[passengerColor] + count > maxCapacity) return false;
-                _passenger[passengerColor] += count;
-            }
-            else
-            {
-                if (count > maxCapacity) return false;
-                _passenger[passengerColor] = count;
-            }
+            if (_passengerCount + count > maxCapacity)
+                return false;
             
+            if (!_passengers.TryAdd(passengerColor, count))
+            {
+                _passengers[passengerColor] += count;
+            }
+
+            if (!passengerColors.Contains(passengerColor))
+            {
+                passengerColors.Add(passengerColor);
+            }
+
             _passengerCount += count;
             return true;
         }
 
+        // Removes passengers if enough of the requested color are onboard.
         public override bool RemovePassengers(DestinationColor passengerColor, int count = 1)
         {
-            if (!_passenger.ContainsKey(passengerColor) || _passenger[passengerColor] < count) return false;
-
-            _passenger[passengerColor] -= count;
-
-            if (_passenger[passengerColor] == 0) _passenger.Remove(passengerColor);
+            if (!_passengers.ContainsKey(passengerColor) || _passengers[passengerColor] < count)
+                return false;
             
-
+            _passengers[passengerColor] -= count;
+            if (_passengers[passengerColor] == 0)
+            {
+                _passengers.Remove(passengerColor);
+                passengerColors.Remove(passengerColor);
+            }
+            
             _passengerCount -= count;
             return true;
         }
