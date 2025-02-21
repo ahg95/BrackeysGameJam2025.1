@@ -194,7 +194,6 @@ namespace _1_Code
             Debug.Log($"Plane {name} exploded!");
 
             OnPlaneExploded?.Invoke(this);
-            AudioManager.PlayClip(explosionClip);
             gameObject.SetActive(false);
         }
     }
