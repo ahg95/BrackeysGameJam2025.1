@@ -12,6 +12,7 @@ namespace _1_Code
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
 
         [SerializeField] private DestinationColor airportColor = DestinationColor.Blue;
+        [SerializeField] private Renderer[] passengerRepresentations;
         [SerializeField] private List<Plane> planes = new List<Plane>();
         [SerializeField] private int maxPlanes = 3; // Maximum airport plane capacity (default is 3).
 
@@ -28,13 +29,20 @@ namespace _1_Code
         private void Awake()
         {
             UpdateAirportMaterialColor();
-            if (startWithRandomPassengers)
-                PopulateAirport();
+            if (startWithRandomPassengers) PopulateAirport();
         }
 
-        // Populates the airport queue with random passengers.
+        private void Start() => PopulatePlanes();
+
+        // Populates the airport queue with random passengers using the AddPassengers method.
         private void PopulateAirport()
         {
+            Airport[] allAirports = FindObjectsByType<Airport>(FindObjectsSortMode.None);
+            HashSet<DestinationColor> existingColors = new HashSet<DestinationColor>();
+
+            foreach (var airport in allAirports)
+                existingColors.Add(airport.airportColor);
+
             for (var i = 0; i < maxCapacity; i++)
             {
                 DestinationColor randomPassengerColor;
@@ -42,18 +50,13 @@ namespace _1_Code
                 {
                     randomPassengerColor = (DestinationColor)Random.Range(0,
                         Enum.GetValues(typeof(DestinationColor)).Length);
-                } while (randomPassengerColor == airportColor);
+                } while (randomPassengerColor == airportColor || !existingColors.Contains(randomPassengerColor));
 
-                _passengerQueue.Enqueue(randomPassengerColor);
-                passengerList.Add(randomPassengerColor);
+                // Use AddPassengers so that the passenger is added correctly and visualization is refreshed.
+                AddPassengers(randomPassengerColor);
             }
 
             Debug.Log($"Airport populated with {_passengerQueue.Count} passengers.");
-        }
-
-        private void Start()
-        {
-            PopulatePlanes();
         }
 
         /// <summary>
@@ -63,36 +66,25 @@ namespace _1_Code
         /// </summary>
         private void PopulatePlanes()
         {
-            foreach (var plane in planes)
+            Airport[] allAirports = FindObjectsByType<Airport>(FindObjectsSortMode.None);
+            HashSet<DestinationColor> existingColors = new HashSet<DestinationColor>();
+
+            foreach (var airport in allAirports)
             {
-                plane.LandAtAirport(this);
-                if (plane.IsFull)
-                    continue; // If the plane is full, skip it.
-                if (_passengerQueue.Count == 0)
-                    break; // No more passengers? Stop.
-
-                var remainingSeatsInPlane = plane.RemainingCapacity;
-
-                // Iterating through the remaining seats in the plane.
-                for (var i = 0; i < remainingSeatsInPlane; i++)
-                {
-                    if (!_passengerQueue.TryDequeue(out var passengerColor))
-                        break; // No more passengers? Stop.
-                    passengerList.Remove(passengerColor);
-                    Debug.Log($"{passengerColor} boarded {plane.name}.");
-                    plane.AddPassengers(passengerColor);
-                }
+                existingColors.Add(airport.airportColor);
             }
 
-            // Update landing positions in case any planes have landed already.
-            UpdatePlaneLandingPositions();
+            foreach (var plane in planes)
+            {
+                ProcessPlaneArrival(plane);
+            }
         }
 
         /// <summary>
         /// Manages the boarding and disembarking process of passengers on a plane at the airport.
         /// </summary>
         /// <param name="plane">The plane object that will undergo the boarding and disembarking process.</param>
-        public void ProcessPlane(Plane plane)
+        private void ProcessPlane(Plane plane)
         {
             // Disembark passengers on the plane that match the airport's color.
             int disembarkedCount = 0;
@@ -103,7 +95,7 @@ namespace _1_Code
 
             Debug.Log($"Plane disembarked {disembarkedCount} passenger(s) of color {airportColor}.");
 
-            // Board the plane with passengers from the airport queue.
+            // Board the plane with passengers from the airport queue using RemovePassengers.
             int boardedCount = 0;
             var remainingSeatsInPlane = plane.RemainingCapacity;
 
@@ -112,15 +104,19 @@ namespace _1_Code
                 if (_passengerQueue.Count == 0)
                     break; // No more passengers? Stop.
 
-                if (!_passengerQueue.TryDequeue(out var passengerColor))
+                // Get the first passenger's color without removing it.
+                var passengerColor = _passengerQueue.Peek();
+                // Remove that passenger using our RemovePassengers method.
+                if (!RemovePassengers(passengerColor, 1))
                     break;
-                passengerList.Remove(passengerColor);
+
                 plane.AddPassengers(passengerColor);
                 boardedCount++;
             }
 
             Debug.Log($"Plane boarded {boardedCount} passenger(s).");
         }
+
 
         /// <summary>
         /// Processes the arrival of a plane. If the airport is full, triggers the plane explosion.
@@ -140,6 +136,7 @@ namespace _1_Code
             // If there is space, allow the plane to land and process it.
             AddPlane(plane);
             ProcessPlane(plane);
+            RefreshPassengerVisualization();
 
             // Update landing spots so that the plane snaps to its designated transform.
             UpdatePlaneLandingPositions();
@@ -196,25 +193,23 @@ namespace _1_Code
 
         private void UpdateAirportMaterialColor()
         {
-            // Updates the visual indication of the airport's assigned color using MaterialPropertyBlock
-            var renderer = GetComponentInChildren<Renderer>();
-            if (renderer != null)
-            {
-                var materialPropertyBlock = new MaterialPropertyBlock();
-                renderer.GetPropertyBlock(materialPropertyBlock);
-                materialPropertyBlock.SetColor(BaseColor, airportColor.GetColor());
-                renderer.SetPropertyBlock(materialPropertyBlock);
-            }
+            var r = GetComponentInChildren<Renderer>(true);
+            if (r == null) return;
+
+            var materialPropertyBlock = new MaterialPropertyBlock();
+            r.GetPropertyBlock(materialPropertyBlock);
+            materialPropertyBlock.SetColor(BaseColor, airportColor.GetColor());
+            r.SetPropertyBlock(materialPropertyBlock);
         }
 
         private void OnValidate()
         {
             // Ensures that maxPlanes is at least 1 (sensible minimum).
-            /*if (maxPlanes < 1)
+            if (maxPlanes < 1)
             {
                 maxPlanes = 1;
                 Debug.LogWarning("Max planes for an airport cannot be less than 1. Setting to 1.");
-            }*/
+            }
 
             // Optionally, warn if there are not enough landing spots for the maximum planes.
             if (landingSpots != null && landingSpots.Length < maxPlanes)
@@ -241,6 +236,7 @@ namespace _1_Code
                 passengerList.Add(passengerColor);
             }
 
+            RefreshPassengerVisualization();
             return true;
         }
 
@@ -250,23 +246,65 @@ namespace _1_Code
         public override bool RemovePassengers(DestinationColor passengerColor, int count = 1)
         {
             int removedCount = 0;
-            Queue<DestinationColor> newQueue = new Queue<DestinationColor>();
-            while (_passengerQueue.Count > 0)
+
+            // Quickly remove matching passengers from the front of the queue.
+            while (removedCount < count && _passengerQueue.Count > 0 && _passengerQueue.Peek() == passengerColor)
             {
-                var passenger = _passengerQueue.Dequeue();
-                if (passenger == passengerColor && removedCount < count)
-                {
-                    removedCount++;
-                    passengerList.Remove(passenger);
-                }
-                else
-                {
-                    newQueue.Enqueue(passenger);
-                }
+                _passengerQueue.Dequeue();
+                passengerList.Remove(passengerColor);
+                removedCount++;
             }
 
-            _passengerQueue = newQueue;
+            // If we haven't removed enough, filter through the remainder.
+            if (removedCount < count)
+            {
+                Queue<DestinationColor> newQueue = new Queue<DestinationColor>();
+                while (_passengerQueue.Count > 0)
+                {
+                    var passenger = _passengerQueue.Dequeue();
+                    if (passenger == passengerColor && removedCount < count)
+                    {
+                        removedCount++;
+                        passengerList.Remove(passenger);
+                    }
+                    else
+                    {
+                        newQueue.Enqueue(passenger);
+                    }
+                }
+                _passengerQueue = newQueue;
+            }
+
+            RefreshPassengerVisualization();
             return removedCount == count;
+        }
+
+
+        public override void RefreshPassengerVisualization()
+        {
+            int index = 0;
+
+            foreach (var passengerColor in _passengerQueue)
+            {
+                // Ensure we do not exceed the available renderers.
+                if (index >= passengerRepresentations.Length)
+                    break;
+
+                var r = passengerRepresentations[index];
+                MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+                r.GetPropertyBlock(propertyBlock);
+                propertyBlock.SetColor(BaseColor, passengerColor.GetColor());
+                r.SetPropertyBlock(propertyBlock);
+                r.gameObject.SetActive(true);
+        
+                index++;
+            }
+
+            // Deactivate any remaining passenger representations.
+            for (; index < passengerRepresentations.Length; index++)
+            {
+                passengerRepresentations[index].gameObject.SetActive(false);
+            }
         }
     }
 }

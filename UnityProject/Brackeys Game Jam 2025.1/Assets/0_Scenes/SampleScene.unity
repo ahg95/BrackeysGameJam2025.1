@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
       value: Airport (2)
@@ -236,6 +240,10 @@ PrefabInstance:
     - target: {fileID: 861982766380494289, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
@@ -626,6 +634,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
       value: Airport (4)
@@ -691,6 +703,10 @@ PrefabInstance:
     - target: {fileID: 861982766380494289, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
@@ -931,6 +947,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
       value: Airport (3)
@@ -992,6 +1012,10 @@ PrefabInstance:
     - target: {fileID: 861982766380494289, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
@@ -1097,6 +1121,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2060662309}
     m_Modifications:
+    - target: {fileID: 712736311059325978, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: airportColor
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 712736311059325978, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: planes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 712736311059325978, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: 'planes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3868678023396642498}
     - target: {fileID: 861982766380494289, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16
@@ -1137,6 +1173,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: planes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4510099815982732668, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
+      propertyPath: 'planes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3868678023396642498}
     - target: {fileID: 4922620104317759567, guid: dda7017e7b70d2d44bbf12326eb918c9, type: 3}
       propertyPath: m_Name
       value: Airport
@@ -1189,7 +1233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8722254906150873529, guid: aa5643ba9d52c264090da50cd30482cf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8722254906150873529, guid: aa5643ba9d52c264090da50cd30482cf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1224,6 +1268,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5643ba9d52c264090da50cd30482cf, type: 3}
+--- !u!114 &3868678023396642498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5479841052088132704, guid: aa5643ba9d52c264090da50cd30482cf, type: 3}
+  m_PrefabInstance: {fileID: 3868678023396642497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26753a8697c4bbebd6ccbfa572cedac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

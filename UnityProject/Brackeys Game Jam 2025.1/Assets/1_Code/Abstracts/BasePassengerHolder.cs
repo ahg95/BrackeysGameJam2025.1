@@ -28,5 +28,7 @@ namespace _1_Code.Abstracts
         /// <param name="count">The number of passengers to remove. Defaults to 1 if not specified.</param>
         /// <returns>True if the passengers are successfully removed; otherwise, false.</returns>
         public abstract bool RemovePassengers(DestinationColor passengerColor, int count = 1);
+        
+        public abstract void RefreshPassengerVisualization();
     }
 }

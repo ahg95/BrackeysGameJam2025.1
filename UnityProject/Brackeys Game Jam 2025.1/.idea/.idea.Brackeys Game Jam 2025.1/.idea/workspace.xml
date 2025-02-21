@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="" />
+    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="Remove redundant explosion sound on plane destruction.&#10;&#10;The explosion sound is already handled elsewhere, making this call unnecessary. This change ensures no duplicate audio plays and helps streamline the destruction logic.">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Abstracts/BasePassengerHolder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Abstracts/BasePassengerHolder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tests/Airplane 1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tests/Airplane 1.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tests/Airport.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tests/Airport.prefab" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,21 +44,9 @@
     <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8e5a634840fd4c6b9a0a867163b727ec1df200/6d/52ea28d7/Material.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/1_Code/Airport.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/1_Code/Airport.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/1_Code/Plane.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -137,6 +134,7 @@
       <workItem from="1740132016982" duration="3955000" />
       <workItem from="1740136026429" duration="1919000" />
       <workItem from="1740139191114" duration="6534000" />
+      <workItem from="1740146975259" duration="4809000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />
@@ -226,7 +224,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740146782211</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Remove unused assets and update prefab naming for clarity&#10;&#10;Deleted outdated &quot;Airport 1&quot; prefab and its meta file, along with the unused `AudioManager` script and its meta file. Renamed &quot;Airport 1&quot; to &quot;Airport&quot; for improved consistency and organization.">
+      <option name="closed" value="true" />
+      <created>1740147006196</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740147006196</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Remove redundant explosion sound on plane destruction.&#10;&#10;The explosion sound is already handled elsewhere, making this call unnecessary. This change ensures no duplicate audio plays and helps streamline the destruction logic.">
+      <option name="closed" value="true" />
+      <created>1740147027931</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1740147027931</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,6 +278,8 @@
     <MESSAGE value="Remove IInteractable system and related components.&#10;&#10;Eliminated the IInteractable interface and its implementations, simplifying the interaction logic. Removed associated scripts (AirportInteractable, PlaneInteractable, and SelectionManager) and properties from related GameObjects. This refactor streamlines the architecture, reducing unnecessary complexity and improving maintainability." />
     <MESSAGE value="Handle plane explosion and improve airport logic&#10;&#10;Added explosion handling for planes with an event notification and cleanup logic. Updated airport behavior to remove planes from current airports properly before departure. Simplified and clarified landing processes with capacity checks and refactored movement logic." />
     <MESSAGE value="Add prefabs for Airplane 1 and Airport 1&#10;&#10;Created new prefabs for &quot;Airplane 1&quot; and &quot;Airport 1&quot; in the project. These include detailed components such as RectTransforms, MonoBehaviours, and rendering settings for both objects. This adds new functionality and assets to the project." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add prefabs for Airplane 1 and Airport 1&#10;&#10;Created new prefabs for &quot;Airplane 1&quot; and &quot;Airport 1&quot; in the project. These include detailed components such as RectTransforms, MonoBehaviours, and rendering settings for both objects. This adds new functionality and assets to the project." />
+    <MESSAGE value="Remove unused assets and update prefab naming for clarity&#10;&#10;Deleted outdated &quot;Airport 1&quot; prefab and its meta file, along with the unused `AudioManager` script and its meta file. Renamed &quot;Airport 1&quot; to &quot;Airport&quot; for improved consistency and organization." />
+    <MESSAGE value="Remove redundant explosion sound on plane destruction.&#10;&#10;The explosion sound is already handled elsewhere, making this call unnecessary. This change ensures no duplicate audio plays and helps streamline the destruction logic." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove redundant explosion sound on plane destruction.&#10;&#10;The explosion sound is already handled elsewhere, making this call unnecessary. This change ensures no duplicate audio plays and helps streamline the destruction logic." />
   </component>
 </project>

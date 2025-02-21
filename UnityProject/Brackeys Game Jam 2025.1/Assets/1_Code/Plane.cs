@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using _1_Code.Abstracts;
 using _1_Code.Enums;
 using DG.Tweening;
-using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _1_Code
 {
     public class Plane : BasePassengerHolder
     {
+        private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+
         // Passenger-related fields.
         private readonly Dictionary<DestinationColor, int> _passengers = new();
         [SerializeField] private List<DestinationColor> passengerColors = new();
+        [SerializeField] private Renderer[] passengerRepresentations;
         private int _passengerCount = 0;
 
         public static event Action<Plane> OnPlaneExploded;
@@ -36,11 +39,10 @@ namespace _1_Code
         [Tooltip("Refuel rate per second when landed.")] [SerializeField]
         private float refuelRate = 10f;
 
-        [SerializeField] private UnityEngine.UI.Slider fuelSlider;
+        [SerializeField] private Slider fuelSlider;
 
-        [Header("Audio")]
-        [SerializeField] private AudioClip explosionClip;
-        
+        [Header("Audio")] [SerializeField] private AudioClip explosionClip;
+
         private Tween _moveTween;
 
         private float CurrentFuel
@@ -102,6 +104,7 @@ namespace _1_Code
 
             // Calculate the travel time based on distance and speed.
             Vector3 targetPosition = destinationAirport.transform.position;
+            targetPosition.z = transform.position.z;
             float travelTime = Vector3.Distance(transform.position, targetPosition) / speed;
 
             // Set up the movement tween with DOTween.
@@ -121,7 +124,6 @@ namespace _1_Code
                     }
                 });
         }
-
 
         // Called when the plane lands at an airport.
         public void LandAtAirport(Airport landingAirport)
@@ -152,6 +154,8 @@ namespace _1_Code
             }
 
             _passengerCount += count;
+
+            RefreshPassengerVisualization();
             return true;
         }
 
@@ -169,6 +173,8 @@ namespace _1_Code
             }
 
             _passengerCount -= count;
+
+            RefreshPassengerVisualization();
             return true;
         }
 
@@ -195,6 +201,40 @@ namespace _1_Code
 
             OnPlaneExploded?.Invoke(this);
             gameObject.SetActive(false);
+        }
+
+        public override void RefreshPassengerVisualization()
+        {
+            int index = 0;
+
+            foreach (var passenger in _passengers)
+            {
+                // Iterate over the passenger count and update the renderers with their associated colors.
+                for (int i = 0; i < passenger.Value && index < passengerRepresentations.Length; i++, index++)
+                {
+                    var r = passengerRepresentations[index];
+                    MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+                    r.GetPropertyBlock(propertyBlock);
+                    propertyBlock.SetColor(BaseColor, passenger.Key.GetColor());
+                    r.SetPropertyBlock(propertyBlock);
+                    r.gameObject.SetActive(true);
+                }
+            }
+
+            // Deactivate unused passenger representations.
+            for (; index < passengerRepresentations.Length; index++)
+            {
+                passengerRepresentations[index].gameObject.SetActive(false);
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (passengerRepresentations != null && passengerRepresentations.Length != maxCapacity)
+            {
+                Debug.LogWarning(
+                    "The number of renderers in passengerRepresentations should match the maxCapacity of the plane.");
+            }
         }
     }
 }
