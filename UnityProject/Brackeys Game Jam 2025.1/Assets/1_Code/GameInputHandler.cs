@@ -1,5 +1,6 @@
 using _1_Code.Interaction;
 using _1_Code.Selection_Visualization.QuickOutline.Scripts;
+using _Scripts.Events_system.Event_types;
 using UnityEngine;
 
 namespace _1_Code
@@ -8,6 +9,8 @@ namespace _1_Code
     {
         private Camera _mainCamera;
         private GameObject _lastHoveredObject; // Track the last hovered GameObject
+
+        [SerializeField] private VoidGameEvent onNothingClicked;
 
         private void Start()
         {
@@ -84,6 +87,7 @@ namespace _1_Code
                     }
                     else
                     {
+                        onNothingClicked?.Raise();
                         Debug.Log("Clicked on a non-interactable object.");
                     }
                 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _1_Code.Abstracts;
 using _1_Code.Enums;
+using _Scripts.Events_system.Event_types;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,12 +21,15 @@ namespace _1_Code
             "Designated landing spots to prevent overlapping planes. The size of this array should be at least equal to Max Planes.")]
         [SerializeField]
         private Transform[] landingSpots;
+        
+        [Header("Events")]
+        [SerializeField] private IntGameEvent passengersDisembarked;
 
         [Header("Debug")] [SerializeField] private bool startWithRandomPassengers = false;
 
         private Queue<DestinationColor> _passengerQueue = new Queue<DestinationColor>();
         [SerializeField] private List<DestinationColor> passengerList = new List<DestinationColor>();
-
+        
         private void Awake()
         {
             UpdateAirportMaterialColor();
@@ -89,6 +93,8 @@ namespace _1_Code
                 disembarkedCount++;
             }
 
+            passengersDisembarked?.Raise(disembarkedCount);
+            
             Debug.Log($"Plane disembarked {disembarkedCount} passenger(s) of color {airportColor}.");
 
             // Board the plane with passengers from the airport queue using RemovePassengers.
@@ -129,6 +135,7 @@ namespace _1_Code
                 return;
             }
 
+            plane.SetCurrentAirport(this);
             // If there is space, allow the plane to land and process it.
             AddPlane(plane);
             ProcessPlane(plane);

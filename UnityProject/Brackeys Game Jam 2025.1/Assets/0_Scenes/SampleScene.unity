@@ -756,6 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f275b1f9ee11e0c4d99df839d768b0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onNothingClicked: {fileID: 11400000, guid: fab3cb7c43854d54c9eb77ca61a734a0, type: 2}
 --- !u!4 &1587307167
 Transform:
   m_ObjectHideFlags: 0
@@ -1075,6 +1076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba530467bc69c124b8436db26832330a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onNothingClicked: {fileID: 11400000, guid: fab3cb7c43854d54c9eb77ca61a734a0, type: 2}
 --- !u!1 &2060662308
 GameObject:
   m_ObjectHideFlags: 0
