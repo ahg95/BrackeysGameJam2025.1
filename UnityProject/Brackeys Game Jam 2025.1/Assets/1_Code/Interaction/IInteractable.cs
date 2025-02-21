@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace _1_Code
+namespace _1_Code.Interaction
 {
     /// <summary>
     /// Any object that can be clicked or interacted with should implement this interface.

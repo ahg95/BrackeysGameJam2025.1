@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _1_Code
+namespace _1_Code.Interaction
 {
     /// <summary>
     /// Attach this to a Plane GameObject. 

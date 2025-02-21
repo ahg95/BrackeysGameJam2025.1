@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _1_Code
+namespace _1_Code.Interaction
 {
     /// <summary>
     /// Keeps track of the currently selected plane, if any.

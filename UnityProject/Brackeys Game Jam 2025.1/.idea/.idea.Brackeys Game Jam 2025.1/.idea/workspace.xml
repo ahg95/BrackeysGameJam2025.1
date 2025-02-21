@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/IInteractable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/IInteractable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/PlaneInteractable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/PlaneInteractable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/SelectionManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/SelectionManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AirportInteractable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AirportInteractable.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +130,7 @@
       <workItem from="1739828060705" duration="1884000" />
       <workItem from="1740131433544" duration="302000" />
       <workItem from="1740132016982" duration="3955000" />
-      <workItem from="1740136026429" duration="2220000" />
+      <workItem from="1740136026429" duration="1919000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />
