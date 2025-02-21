@@ -726,10 +726,11 @@ MonoBehaviour:
   - {fileID: 1539079964253994249}
   maxFuel: 100
   currentFuel: 0
-  fuelConsumptionRate: 10
+  fuelConsumptionRate: 5
   refuelRate: 10
   fuelSlider: {fileID: 3358895412158340730}
   explosionClip: {fileID: 8300000, guid: 543e47f0660ca874fadb76405dcf30ac, type: 3}
+  onPlaneDestroyed: {fileID: 11400000, guid: b73ae6492244cf545867b274cdb2418d, type: 2}
 --- !u!114 &82887195412632269
 MonoBehaviour:
   m_ObjectHideFlags: 0
