@@ -42,6 +42,13 @@ namespace _1_Code
                 Debug.LogWarning("The plane is already landed at the selected airport.");
                 return;
             }
+            
+            var currentAirport = plane.CurrentAirport;
+            if (currentAirport)
+            {
+                currentAirport.RemovePlane(plane); // Remove the plane from the current airport.
+            }
+
 
             // Mark that the plane is departing.
             plane.DepartAirport();
@@ -55,19 +62,19 @@ namespace _1_Code
         /// <param name="destinationAirport">The destination airport to which the plane will travel.</param>
         private static void MovePlane(Plane plane, Airport destinationAirport)
         {
-            Vector3 targetPosition = destinationAirport.transform.position + Vector3.up;
+            Vector3 targetPosition = destinationAirport.transform.position;
             float travelTime = Vector3.Distance(plane.transform.position, targetPosition) / FlightSpeed;
 
-            // Use DOTween to move the plane.
-            plane.transform.DOMove(targetPosition, travelTime)
-                .OnComplete(() =>
-                {
-                    // Once arrived, tell the destination airport to process the plane.
-                    destinationAirport.ProcessPlane(plane);
-                    // Set the plane's current airport.
-                    plane.LandAtAirport(destinationAirport);
-                    Debug.Log("Plane has arrived at " + destinationAirport.name + " and is processing passengers.");
-                });
+            plane.transform.DOMove(targetPosition, travelTime).OnComplete(() =>
+            {
+                // Check capacity and either explode or land
+                destinationAirport.ProcessPlaneArrival(plane);
+
+                // If not exploded, mark the plane as landed
+                // (You could use a null check if you remove the plane after explosion.)
+                plane.LandAtAirport(destinationAirport);
+            });
         }
+
     }
 }

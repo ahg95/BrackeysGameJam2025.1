@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _1_Code.Abstracts;
 using _1_Code.Enums;
@@ -13,6 +14,8 @@ namespace _1_Code
         [SerializeField] private List<DestinationColor> passengerColors = new();
         
         private int _passengerCount = 0;
+        
+        public static event Action<Plane> OnPlaneExploded;
         
         // Whether the plane is full.
         public bool IsFull => _passengerCount >= maxCapacity;
@@ -71,5 +74,15 @@ namespace _1_Code
             _passengerCount -= count;
             return true;
         }
+        
+        public void ExplodePlane()
+        {
+            // Trigger the explosion event
+            OnPlaneExploded?.Invoke(this);
+
+            // (Optional) Destroy the plane GameObject
+            Destroy(gameObject);
+        }
+
     }
 }

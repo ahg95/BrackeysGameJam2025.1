@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/IInteractable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/IInteractable.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/PlaneInteractable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/PlaneInteractable.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/SelectionManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/SelectionManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AirportInteractable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AirportInteractable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/FlightManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/FlightManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,11 +35,19 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8e5a634840fd4c6b9a0a867163b727ec1df200/6d/52ea28d7/Material.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/1_Code/Airport.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/1_Code/IInteractable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/1_Code/PlaneInteractable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/1_Code/SelectionManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/AirportInteractable.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -131,6 +134,7 @@
       <workItem from="1740131433544" duration="302000" />
       <workItem from="1740132016982" duration="3955000" />
       <workItem from="1740136026429" duration="1919000" />
+      <workItem from="1740139191114" duration="3452000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />
@@ -188,7 +192,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740134220349</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add basic interaction scripts and quick outline visualization&#10;&#10;Introduced `AirportInteractable` and `PlaneInteractable` scripts to handle interactions for planes and airports. Implemented `IInteractable` interface for reusable interaction design. Added the QuickOutline package for selection visualization, including its shaders, materials, and a sample scene.">
+      <option name="closed" value="true" />
+      <created>1740138727407</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1740138727407</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Remove IInteractable system and related components.&#10;&#10;Eliminated the IInteractable interface and its implementations, simplifying the interaction logic. Removed associated scripts (AirportInteractable, PlaneInteractable, and SelectionManager) and properties from related GameObjects. This refactor streamlines the architecture, reducing unnecessary complexity and improving maintainability.">
+      <option name="closed" value="true" />
+      <created>1740138738215</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740138738215</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,6 +242,8 @@
     <MESSAGE value="Add metadata and assets for DOTween Pro editor resources&#10;&#10;This commit adds metadata files, textures, and XML documentation for DOTween Pro editor resources. These assets include various images and the DemiEditor.dll with corresponding metadata, enhancing editor functionalities and documentation support." />
     <MESSAGE value="Update DOTween setup and add FlightInputManager script&#10;&#10;Removed outdated DOTweenUpgradeManager files and adjusted DOTween settings to disable physics integration markers. Added new FlightInputManager script to handle airplane and airport interactions in the scene. These changes optimize DOTween functionality while introducing improved input handling features." />
     <MESSAGE value="Refactor scene objects and update configurations&#10;&#10;Removed unused GameObjects and restructured hierarchy for better clarity. Renamed elements like &quot;Mesh&quot; to more descriptive names such as &quot;Airport 1&quot; and &quot;Airplane 1.&quot; Applied modifications to MonoBehaviour components, updated object positions, and fine-tuned settings for consistency." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor scene objects and update configurations&#10;&#10;Removed unused GameObjects and restructured hierarchy for better clarity. Renamed elements like &quot;Mesh&quot; to more descriptive names such as &quot;Airport 1&quot; and &quot;Airplane 1.&quot; Applied modifications to MonoBehaviour components, updated object positions, and fine-tuned settings for consistency." />
+    <MESSAGE value="Add basic interaction scripts and quick outline visualization&#10;&#10;Introduced `AirportInteractable` and `PlaneInteractable` scripts to handle interactions for planes and airports. Implemented `IInteractable` interface for reusable interaction design. Added the QuickOutline package for selection visualization, including its shaders, materials, and a sample scene." />
+    <MESSAGE value="Remove IInteractable system and related components.&#10;&#10;Eliminated the IInteractable interface and its implementations, simplifying the interaction logic. Removed associated scripts (AirportInteractable, PlaneInteractable, and SelectionManager) and properties from related GameObjects. This refactor streamlines the architecture, reducing unnecessary complexity and improving maintainability." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove IInteractable system and related components.&#10;&#10;Eliminated the IInteractable interface and its implementations, simplifying the interaction logic. Removed associated scripts (AirportInteractable, PlaneInteractable, and SelectionManager) and properties from related GameObjects. This refactor streamlines the architecture, reducing unnecessary complexity and improving maintainability." />
   </component>
 </project>

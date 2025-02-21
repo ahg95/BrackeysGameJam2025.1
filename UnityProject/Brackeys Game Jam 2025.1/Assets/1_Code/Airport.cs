@@ -10,9 +10,15 @@ namespace _1_Code
     public class Airport : BasePassengerHolder
     {
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
-        
+
         [SerializeField] private DestinationColor airportColor = DestinationColor.Blue;
         [SerializeField] private List<Plane> planes = new List<Plane>();
+        [SerializeField] private int maxPlanes = 3; // Maximum airport plane capacity (default is 3).
+
+        [Tooltip(
+            "Designated landing spots to prevent overlapping planes. The size of this array should be at least equal to Max Planes.")]
+        [SerializeField]
+        private Transform[] landingSpots;
 
         [Header("Debug")] [SerializeField] private bool startWithRandomPassengers = false;
 
@@ -22,7 +28,6 @@ namespace _1_Code
         private void Awake()
         {
             UpdateAirportMaterialColor();
-
             if (startWithRandomPassengers)
                 PopulateAirport();
         }
@@ -61,20 +66,26 @@ namespace _1_Code
             foreach (var plane in planes)
             {
                 plane.LandAtAirport(this);
-                if (plane.IsFull) continue; // If the plane is full, skip it.
-                if (_passengerQueue.Count == 0) break; // No more passengers in the airport? Stop.
+                if (plane.IsFull)
+                    continue; // If the plane is full, skip it.
+                if (_passengerQueue.Count == 0)
+                    break; // No more passengers? Stop.
 
                 var remainingSeatsInPlane = plane.RemainingCapacity;
 
                 // Iterating through the remaining seats in the plane.
                 for (var i = 0; i < remainingSeatsInPlane; i++)
                 {
-                    if (!_passengerQueue.TryDequeue(out var passengerColor)) break; // No more passengers? Stop.
+                    if (!_passengerQueue.TryDequeue(out var passengerColor))
+                        break; // No more passengers? Stop.
                     passengerList.Remove(passengerColor);
                     Debug.Log($"{passengerColor} boarded {plane.name}.");
                     plane.AddPassengers(passengerColor);
                 }
             }
+
+            // Update landing positions in case any planes have landed already.
+            UpdatePlaneLandingPositions();
         }
 
         /// <summary>
@@ -83,9 +94,8 @@ namespace _1_Code
         /// <param name="plane">The plane object that will undergo the boarding and disembarking process.</param>
         public void ProcessPlane(Plane plane)
         {
-            // 1. Disembark passengers on the plane that match the airport's color.
+            // Disembark passengers on the plane that match the airport's color.
             int disembarkedCount = 0;
-            // We call RemovePassengers repeatedly until no more matching passengers remain.
             while (plane.RemovePassengers(airportColor, 1))
             {
                 disembarkedCount++;
@@ -93,59 +103,133 @@ namespace _1_Code
 
             Debug.Log($"Plane disembarked {disembarkedCount} passenger(s) of color {airportColor}.");
 
-            // 2. Board the plane with passengers from the airport queue.
+            // Board the plane with passengers from the airport queue.
             int boardedCount = 0;
-            // We need to rebuild the airport queue because some passengers may not be eligible.
-            Queue<DestinationColor> newQueue = new Queue<DestinationColor>();
+            var remainingSeatsInPlane = plane.RemainingCapacity;
 
-            // Attempt to board until the plane is full or there are no more passengers.
-            while (_passengerQueue.Count > 0 && !plane.IsFull)
+            for (var i = 0; i < remainingSeatsInPlane; i++)
             {
-                var nextPassenger = _passengerQueue.Dequeue();
-                passengerList.Remove(nextPassenger);
+                if (_passengerQueue.Count == 0)
+                    break; // No more passengers? Stop.
 
-                if (nextPassenger != airportColor)
-                {
-                    // Try to add the passenger to the plane.
-                    if (plane.AddPassengers(nextPassenger))
-                    {
-                        boardedCount++;
-                    }
-                    else
-                    {
-                        // If for some reason the passenger cannot board, put back in the new queue.
-                        newQueue.Enqueue(nextPassenger);
-                        passengerList.Add(nextPassenger);
-                    }
-                }
-                else
-                {
-                    // If the passenger's color is the same as the airport,
-                    // they are not boarding the plane here, so keep them waiting.
-                    newQueue.Enqueue(nextPassenger);
-                    passengerList.Add(nextPassenger);
-                }
+                if (!_passengerQueue.TryDequeue(out var passengerColor))
+                    break;
+                passengerList.Remove(passengerColor);
+                plane.AddPassengers(passengerColor);
+                boardedCount++;
             }
 
-            // Add any remaining passengers from the original queue.
-            while (_passengerQueue.Count > 0)
+            Debug.Log($"Plane boarded {boardedCount} passenger(s).");
+        }
+
+        /// <summary>
+        /// Processes the arrival of a plane. If the airport is full, triggers the plane explosion.
+        /// Otherwise, the plane is assigned a designated landing spot.
+        /// </summary>
+        /// <param name="plane">The arriving plane.</param>
+        public void ProcessPlaneArrival(Plane plane)
+        {
+            // If there's no space left for the plane, explode the plane.
+            if (!HasSpace())
             {
-                var passenger = _passengerQueue.Dequeue();
-                newQueue.Enqueue(passenger);
+                plane.ExplodePlane(); // Explode the plane
+                Debug.Log($"Plane {plane.name} exploded upon arrival to {name}, as the airport is at capacity.");
+                return;
             }
 
-            _passengerQueue = newQueue;
+            // If there is space, allow the plane to land and process it.
+            AddPlane(plane);
+            ProcessPlane(plane);
 
-            Debug.Log($"Plane boarded {boardedCount} passenger(s) from the airport.");
+            // Update landing spots so that the plane snaps to its designated transform.
+            UpdatePlaneLandingPositions();
+        }
+
+        /// <summary>
+        /// Adds a plane to the airport's list.
+        /// </summary>
+        /// <param name="plane">The plane to add.</param>
+        private void AddPlane(Plane plane)
+        {
+            if (planes.Contains(plane))
+                return;
+            planes.Add(plane);
+        }
+
+        /// <summary>
+        /// Removes a plane from the airport's list (e.g., when it departs or is destroyed) and updates landing assignments.
+        /// </summary>
+        /// <param name="plane">The plane to remove.</param>
+        public void RemovePlane(Plane plane)
+        {
+            if (planes.Contains(plane))
+            {
+                planes.Remove(plane);
+                UpdatePlaneLandingPositions();
+            }
+        }
+
+        /// <summary>
+        /// Checks if the airport has space for more planes.
+        /// </summary>
+        /// <returns>True if the airport can hold more planes, false otherwise.</returns>
+        private bool HasSpace() => planes.Count < maxPlanes;
+
+        /// <summary>
+        /// Updates the positions of planes to snap them to their designated landing spots.
+        /// It assigns landing spots based on the order in the planes list. If a leftover plane does not 
+        /// have an assigned landing spot (because there are fewer landing spots than planes), it will remain at its current position.
+        /// </summary>
+        private void UpdatePlaneLandingPositions()
+        {
+            if (landingSpots == null || landingSpots.Length == 0)
+                return; // No landing spots assigned. Do nothing.
+
+            for (int i = 0; i < planes.Count; i++)
+            {
+                if (i < landingSpots.Length && planes[i] != null)
+                {
+                    planes[i].transform.position = landingSpots[i].position;
+                }
+            }
+        }
+
+        private void UpdateAirportMaterialColor()
+        {
+            // Updates the visual indication of the airport's assigned color using MaterialPropertyBlock
+            var renderer = GetComponentInChildren<Renderer>();
+            if (renderer != null)
+            {
+                var materialPropertyBlock = new MaterialPropertyBlock();
+                renderer.GetPropertyBlock(materialPropertyBlock);
+                materialPropertyBlock.SetColor(BaseColor, airportColor.GetColor());
+                renderer.SetPropertyBlock(materialPropertyBlock);
+            }
+        }
+
+        private void OnValidate()
+        {
+            // Ensures that maxPlanes is at least 1 (sensible minimum).
+            /*if (maxPlanes < 1)
+            {
+                maxPlanes = 1;
+                Debug.LogWarning("Max planes for an airport cannot be less than 1. Setting to 1.");
+            }*/
+
+            // Optionally, warn if there are not enough landing spots for the maximum planes.
+            if (landingSpots != null && landingSpots.Length < maxPlanes)
+            {
+                Debug.LogWarning(
+                    "The number of landing spots is less than the maximum planes allowed. Some planes may overlap.");
+            }
+
+            UpdateAirportMaterialColor();
         }
 
         /// <summary>
         /// Adds passengers of a specified color to the current passenger holder
         /// while ensuring that the total capacity is not exceeded.
         /// </summary>
-        /// <param name="passengerColor">The color of passengers to be added.</param>
-        /// <param name="count">The number of passengers to be added. Defaults to 1 if not specified.</param>
-        /// <returns>True if the passengers were successfully added; otherwise, false if the capacity limit is exceeded.</returns>
         public override bool AddPassengers(DestinationColor passengerColor, int count = 1)
         {
             if (_passengerQueue.Count + count > maxCapacity)
@@ -162,12 +246,7 @@ namespace _1_Code
 
         /// <summary>
         /// Removes a specified number of passengers of a given color from the passenger queue.
-        /// If the exact number of passengers requested is not available, the method does not
-        /// remove any passengers and returns false.
         /// </summary>
-        /// <param name="passengerColor">The color of the passengers to be removed from the queue.</param>
-        /// <param name="count">The number of passengers to remove. Defaults to 1.</param>
-        /// <returns>True if the requested number of passengers were successfully removed; otherwise, false.</returns>
         public override bool RemovePassengers(DestinationColor passengerColor, int count = 1)
         {
             int removedCount = 0;
@@ -188,30 +267,6 @@ namespace _1_Code
 
             _passengerQueue = newQueue;
             return removedCount == count;
-        }
-
-
-        /// <summary>
-        /// Updates the material color of the airport using the DestinationColorExtensions.
-        /// </summary>
-        private void UpdateAirportMaterialColor()
-        {
-            Debug.Log("Update color");
-            var renderer = GetComponentInChildren<MeshRenderer>();
-            if (renderer == null)
-            {
-                Debug.LogWarning("Airport Renderer is not assigned.");
-                return;
-            }
-
-            var propertyBlock = new MaterialPropertyBlock();
-            propertyBlock.SetColor(BaseColor, airportColor.GetColor());
-            renderer.SetPropertyBlock(propertyBlock);
-        }
-
-        private void OnValidate()
-        {
-            UpdateAirportMaterialColor();
         }
     }
 }
