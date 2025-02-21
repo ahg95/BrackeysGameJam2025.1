@@ -9,6 +9,7 @@ namespace _1_Code
     {
         private Camera _mainCamera;
         private GameObject _lastHoveredObject; // Track the last hovered GameObject
+        private IInteractable _lastInteractable;
 
         [SerializeField] private VoidGameEvent onNothingClicked;
 
@@ -82,12 +83,15 @@ namespace _1_Code
                     IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                     if (interactable != null)
                     {
-                        // Delegate the interaction behavior to the object
                         interactable.OnInteract();
+                        _lastInteractable?.UnInteract();
+                        _lastInteractable = interactable;
                     }
                     else
                     {
                         onNothingClicked?.Raise();
+                        _lastInteractable?.UnInteract();
+                        _lastInteractable = null;
                         Debug.Log("Clicked on a non-interactable object.");
                     }
                 }

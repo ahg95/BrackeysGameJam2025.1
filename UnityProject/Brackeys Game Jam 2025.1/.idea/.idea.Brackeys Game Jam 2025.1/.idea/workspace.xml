@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="Add base event system and integrate plane destruction event.&#10;&#10;Introduced a scriptable object-based event system with support for parameterized and non-parameterized events. Integrated `VoidGameEvent` to trigger plane destruction events, replacing redundant callbacks for better scalability and modularity.">
+    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="Add event system for plane deselection and passenger updates&#10;&#10;Integrated a scriptable object-based event system, including `VoidGameEvent` and `IntGameEvent`, to improve modularity and scalability. Added `onNothingClicked` event to manage plane deselection and `passengersDisembarked` event for passenger updates. Updated related scripts and prefabs to utilize the new event system.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/AirportInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/AirportInteractable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/IInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/IInteractable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/PlaneInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/PlaneInteractable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/SelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/SelectionManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" afterDir="false" />
     </list>
@@ -37,8 +38,13 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet." root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8e5a634840fd4c6b9a0a867163b727ec1df200/6d/52ea28d7/Material.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/1_Code/Airport.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/1_Code/Interaction/SelectionManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/oedsd/Documents/GitHub/BrackeysGameJam2025.1/UnityProject/Brackeys Game Jam 2025.1/Assets/Prefabs/Tests/Airplane.prefab" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -128,7 +134,7 @@
       <workItem from="1740136026429" duration="1919000" />
       <workItem from="1740139191114" duration="6534000" />
       <workItem from="1740146975259" duration="5112000" />
-      <workItem from="1740154053356" duration="2187000" />
+      <workItem from="1740154053356" duration="3527000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />
@@ -250,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740154853561</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add event system for plane deselection and passenger updates&#10;&#10;Integrated a scriptable object-based event system, including `VoidGameEvent` and `IntGameEvent`, to improve modularity and scalability. Added `onNothingClicked` event to manage plane deselection and `passengersDisembarked` event for passenger updates. Updated related scripts and prefabs to utilize the new event system.">
+      <option name="closed" value="true" />
+      <created>1740156331459</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1740156331459</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +306,7 @@
     <MESSAGE value="Remove redundant explosion sound on plane destruction.&#10;&#10;The explosion sound is already handled elsewhere, making this call unnecessary. This change ensures no duplicate audio plays and helps streamline the destruction logic." />
     <MESSAGE value="Rename and update Airplane 1 prefab to Airplane.&#10;&#10;The &quot;Airplane 1&quot; prefab was renamed to &quot;Airplane&quot; and its meta file was updated accordingly. The changes also include adjustments to components and structure for consistency and optimization." />
     <MESSAGE value="Add base event system and integrate plane destruction event.&#10;&#10;Introduced a scriptable object-based event system with support for parameterized and non-parameterized events. Integrated `VoidGameEvent` to trigger plane destruction events, replacing redundant callbacks for better scalability and modularity." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add base event system and integrate plane destruction event.&#10;&#10;Introduced a scriptable object-based event system with support for parameterized and non-parameterized events. Integrated `VoidGameEvent` to trigger plane destruction events, replacing redundant callbacks for better scalability and modularity." />
+    <MESSAGE value="Add event system for plane deselection and passenger updates&#10;&#10;Integrated a scriptable object-based event system, including `VoidGameEvent` and `IntGameEvent`, to improve modularity and scalability. Added `onNothingClicked` event to manage plane deselection and `passengersDisembarked` event for passenger updates. Updated related scripts and prefabs to utilize the new event system." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add event system for plane deselection and passenger updates&#10;&#10;Integrated a scriptable object-based event system, including `VoidGameEvent` and `IntGameEvent`, to improve modularity and scalability. Added `onNothingClicked` event to manage plane deselection and `passengersDisembarked` event for passenger updates. Updated related scripts and prefabs to utilize the new event system." />
   </component>
 </project>

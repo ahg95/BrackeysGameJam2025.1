@@ -22,5 +22,14 @@ namespace _1_Code.Interaction
             // Selecting this plane in the SelectionManager.
             SelectionManager.Instance.SelectPlane(_plane);
         }
+
+        /// <summary>
+        /// UnInteract is a deselection action. If this plane is currently selected,
+        /// the selection will be cleared.
+        /// </summary>
+        public void UnInteract()
+        {
+            SelectionManager.Instance.DeselectPlane();
+        }
     }
 }

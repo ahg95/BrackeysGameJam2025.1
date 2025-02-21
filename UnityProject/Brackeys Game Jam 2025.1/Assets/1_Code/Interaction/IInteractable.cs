@@ -9,5 +9,6 @@ namespace _1_Code.Interaction
         /// Called by a central input handler when the object is clicked.
         /// </summary>
         void OnInteract();
+        void UnInteract();
     }
 }
