@@ -801,7 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b328c2097b48328c23f9dcc2d2cccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 20
+  maxCapacity: 5
   airportColor: 0
   passengerRepresentations:
   - {fileID: 8466885859825538011}
@@ -813,9 +813,9 @@ MonoBehaviour:
   - {fileID: 4848793716736849795}
   - {fileID: 9010938968824036237}
   - {fileID: 7489512844405764192}
+  passengersDisembarked: {fileID: 11400000, guid: da7c527523ca5fb49b79aec32def1180, type: 2}
   startWithRandomPassengers: 1
   passengerList: 
-  passengersDisembarked: {fileID: 11400000, guid: da7c527523ca5fb49b79aec32def1180, type: 2}
 --- !u!114 &3615991603078745186
 MonoBehaviour:
   m_ObjectHideFlags: 0

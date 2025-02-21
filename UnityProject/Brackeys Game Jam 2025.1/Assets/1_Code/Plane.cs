@@ -18,9 +18,6 @@ namespace _1_Code
         [SerializeField] private List<DestinationColor> passengerColors = new();
         [SerializeField] private Renderer[] passengerRepresentations;
         private int _passengerCount = 0;
-
-        public static event Action<Plane> OnPlaneExploded;
-
         public bool IsFull => _passengerCount >= maxCapacity;
         public int RemainingCapacity => maxCapacity - _passengerCount;
 
