@@ -1,3 +1,4 @@
+using _1_Code.Interaction;
 using UnityEngine;
 
 namespace _1_Code
