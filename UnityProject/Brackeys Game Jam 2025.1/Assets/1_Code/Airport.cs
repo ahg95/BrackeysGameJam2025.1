@@ -13,7 +13,8 @@ namespace _1_Code
         [Header("Debug")] [SerializeField] private bool startWithRandomPassengers = false;
 
         private Queue<DestinationColor> _passengerQueue = new Queue<DestinationColor>();
-
+        [SerializeField] private List<DestinationColor> passengerList = new List<DestinationColor>();
+        
         private void Awake()
         {
             if (startWithRandomPassengers)
@@ -25,11 +26,15 @@ namespace _1_Code
         {
             for (var i = 0; i < maxCapacity; i++)
             {
-                var randomPassengerColor =
-                    (DestinationColor)UnityEngine.Random.Range(0,
+                DestinationColor randomPassengerColor;
+                do
+                {
+                    randomPassengerColor = (DestinationColor)UnityEngine.Random.Range(0,
                         System.Enum.GetValues(typeof(DestinationColor)).Length);
+                } while (randomPassengerColor == airportColor);
+
                 _passengerQueue.Enqueue(randomPassengerColor);
-                Debug.Log($"{randomPassengerColor} boarded");
+                passengerList.Add(randomPassengerColor);
             }
 
             Debug.Log($"Airport populated with {_passengerQueue.Count} passengers.");
@@ -49,6 +54,7 @@ namespace _1_Code
         {
             foreach (var plane in planes)
             {
+                plane.LandAtAirport(this);
                 if (plane.IsFull) continue; // If the plane is full, skip it.
                 if (_passengerQueue.Count == 0) break; // No more passengers in the airport? Stop.
 
@@ -58,6 +64,8 @@ namespace _1_Code
                 for (var i = 0; i < remainingSeatsInPlane; i++)
                 {
                     if (!_passengerQueue.TryDequeue(out var passengerColor)) break; // No more passengers? Stop.
+                    passengerList.Remove(passengerColor);
+                    Debug.Log($"{passengerColor} boarded {plane.name}.");
                     plane.AddPassengers(passengerColor);
                 }
             }
@@ -88,6 +96,8 @@ namespace _1_Code
             while (_passengerQueue.Count > 0 && !plane.IsFull)
             {
                 var nextPassenger = _passengerQueue.Dequeue();
+                passengerList.Remove(nextPassenger);
+
                 if (nextPassenger != airportColor)
                 {
                     // Try to add the passenger to the plane.
@@ -99,6 +109,7 @@ namespace _1_Code
                     {
                         // If for some reason the passenger cannot board, put back in the new queue.
                         newQueue.Enqueue(nextPassenger);
+                        passengerList.Add(nextPassenger);
                     }
                 }
                 else
@@ -106,13 +117,15 @@ namespace _1_Code
                     // If the passenger's color is the same as the airport,
                     // they are not boarding the plane here, so keep them waiting.
                     newQueue.Enqueue(nextPassenger);
+                    passengerList.Add(nextPassenger);
                 }
             }
 
             // Add any remaining passengers from the original queue.
             while (_passengerQueue.Count > 0)
             {
-                newQueue.Enqueue(_passengerQueue.Dequeue());
+                var passenger = _passengerQueue.Dequeue();
+                newQueue.Enqueue(passenger);
             }
 
             _passengerQueue = newQueue;
@@ -135,6 +148,7 @@ namespace _1_Code
             for (var i = 0; i < count; i++)
             {
                 _passengerQueue.Enqueue(passengerColor);
+                passengerList.Add(passengerColor);
             }
 
             return true;
@@ -158,6 +172,7 @@ namespace _1_Code
                 if (passenger == passengerColor && removedCount < count)
                 {
                     removedCount++;
+                    passengerList.Remove(passenger);
                 }
                 else
                 {

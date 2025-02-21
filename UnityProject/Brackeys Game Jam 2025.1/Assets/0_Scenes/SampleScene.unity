@@ -814,6 +814,7 @@ GameObject:
   - component: {fileID: 1406616708}
   - component: {fileID: 1406616707}
   - component: {fileID: 1406616711}
+  - component: {fileID: 1406616712}
   m_Layer: 0
   m_Name: Airport 1
   m_TagString: Untagged
@@ -925,8 +926,20 @@ MonoBehaviour:
   maxCapacity: 20
   airportColor: 0
   planes:
-  - {fileID: 0}
+  - {fileID: 1576367535}
   startWithRandomPassengers: 1
+--- !u!114 &1406616712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406616706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548e52aee9bdde54c815a38994d5bd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1576367530
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,6 +953,7 @@ GameObject:
   - component: {fileID: 1576367533}
   - component: {fileID: 1576367532}
   - component: {fileID: 1576367535}
+  - component: {fileID: 1576367536}
   m_Layer: 0
   m_Name: Airplane 1
   m_TagString: Untagged
@@ -956,7 +970,7 @@ Transform:
   m_GameObject: {fileID: 1576367530}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1049,6 +1063,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCapacity: 3
+--- !u!114 &1576367536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576367530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4299e91e1c17ed4f83373482458dff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1587307165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587307167}
+  - component: {fileID: 1587307166}
+  m_Layer: 0
+  m_Name: Game Input Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1587307166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587307165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f275b1f9ee11e0c4d99df839d768b0a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1587307167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587307165}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1598426944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,6 +1256,7 @@ GameObject:
   - component: {fileID: 1747898764}
   - component: {fileID: 1747898763}
   - component: {fileID: 1747898766}
+  - component: {fileID: 1747898767}
   m_Layer: 0
   m_Name: Airport 2
   m_TagString: Untagged
@@ -1298,6 +1369,18 @@ MonoBehaviour:
   airportColor: 2
   planes: []
   startWithRandomPassengers: 0
+--- !u!114 &1747898767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747898761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548e52aee9bdde54c815a38994d5bd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1986527897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1392,7 @@ GameObject:
   - component: {fileID: 1986527898}
   - component: {fileID: 1986527899}
   m_Layer: 0
-  m_Name: Input Manager
+  m_Name: Selection Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1339,10 +1422,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1986527897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f800fb0870c3c4086f607d589ad6d8, type: 3}
+  m_Script: {fileID: 11500000, guid: ba530467bc69c124b8436db26832330a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flightManager: {fileID: 1598426945}
 --- !u!1 &2060662308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1467,7 @@ SceneRoots:
   - {fileID: 64610641}
   - {fileID: 1700926267}
   - {fileID: 1169091500}
+  - {fileID: 1587307167}
   - {fileID: 1986527898}
   - {fileID: 1598426946}
   - {fileID: 1009153843}
