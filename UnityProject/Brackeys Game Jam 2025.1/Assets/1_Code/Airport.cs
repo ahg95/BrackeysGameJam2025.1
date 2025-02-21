@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
 using _1_Code.Abstracts;
 using _1_Code.Enums;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _1_Code
 {
     public class Airport : BasePassengerHolder
     {
+        private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+        
         [SerializeField] private DestinationColor airportColor = DestinationColor.Blue;
         [SerializeField] private List<Plane> planes = new List<Plane>();
 
@@ -14,9 +18,11 @@ namespace _1_Code
 
         private Queue<DestinationColor> _passengerQueue = new Queue<DestinationColor>();
         [SerializeField] private List<DestinationColor> passengerList = new List<DestinationColor>();
-        
+
         private void Awake()
         {
+            UpdateAirportMaterialColor();
+
             if (startWithRandomPassengers)
                 PopulateAirport();
         }
@@ -29,8 +35,8 @@ namespace _1_Code
                 DestinationColor randomPassengerColor;
                 do
                 {
-                    randomPassengerColor = (DestinationColor)UnityEngine.Random.Range(0,
-                        System.Enum.GetValues(typeof(DestinationColor)).Length);
+                    randomPassengerColor = (DestinationColor)Random.Range(0,
+                        Enum.GetValues(typeof(DestinationColor)).Length);
                 } while (randomPassengerColor == airportColor);
 
                 _passengerQueue.Enqueue(randomPassengerColor);
@@ -182,6 +188,30 @@ namespace _1_Code
 
             _passengerQueue = newQueue;
             return removedCount == count;
+        }
+
+
+        /// <summary>
+        /// Updates the material color of the airport using the DestinationColorExtensions.
+        /// </summary>
+        private void UpdateAirportMaterialColor()
+        {
+            Debug.Log("Update color");
+            var renderer = GetComponentInChildren<MeshRenderer>();
+            if (renderer == null)
+            {
+                Debug.LogWarning("Airport Renderer is not assigned.");
+                return;
+            }
+
+            var propertyBlock = new MaterialPropertyBlock();
+            propertyBlock.SetColor(BaseColor, airportColor.GetColor());
+            renderer.SetPropertyBlock(propertyBlock);
+        }
+
+        private void OnValidate()
+        {
+            UpdateAirportMaterialColor();
         }
     }
 }
