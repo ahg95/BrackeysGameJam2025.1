@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="Handle plane explosion and improve airport logic&#10;&#10;Added explosion handling for planes with an event notification and cleanup logic. Updated airport behavior to remove planes from current airports properly before departure. Simplified and clarified landing processes with capacity checks and refactored movement logic.">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/FlightManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/FlightManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" afterDir="false" />
-    </list>
+    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +136,7 @@
       <workItem from="1740131433544" duration="302000" />
       <workItem from="1740132016982" duration="3955000" />
       <workItem from="1740136026429" duration="1919000" />
-      <workItem from="1740139191114" duration="6311000" />
+      <workItem from="1740139191114" duration="6534000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />
@@ -223,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740143267400</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Add prefabs for Airplane 1 and Airport 1&#10;&#10;Created new prefabs for &quot;Airplane 1&quot; and &quot;Airport 1&quot; in the project. These include detailed components such as RectTransforms, MonoBehaviours, and rendering settings for both objects. This adds new functionality and assets to the project.">
+      <option name="closed" value="true" />
+      <created>1740146782211</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1740146782211</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +263,7 @@
     <MESSAGE value="Add basic interaction scripts and quick outline visualization&#10;&#10;Introduced `AirportInteractable` and `PlaneInteractable` scripts to handle interactions for planes and airports. Implemented `IInteractable` interface for reusable interaction design. Added the QuickOutline package for selection visualization, including its shaders, materials, and a sample scene." />
     <MESSAGE value="Remove IInteractable system and related components.&#10;&#10;Eliminated the IInteractable interface and its implementations, simplifying the interaction logic. Removed associated scripts (AirportInteractable, PlaneInteractable, and SelectionManager) and properties from related GameObjects. This refactor streamlines the architecture, reducing unnecessary complexity and improving maintainability." />
     <MESSAGE value="Handle plane explosion and improve airport logic&#10;&#10;Added explosion handling for planes with an event notification and cleanup logic. Updated airport behavior to remove planes from current airports properly before departure. Simplified and clarified landing processes with capacity checks and refactored movement logic." />
-    <option name="LAST_COMMIT_MESSAGE" value="Handle plane explosion and improve airport logic&#10;&#10;Added explosion handling for planes with an event notification and cleanup logic. Updated airport behavior to remove planes from current airports properly before departure. Simplified and clarified landing processes with capacity checks and refactored movement logic." />
+    <MESSAGE value="Add prefabs for Airplane 1 and Airport 1&#10;&#10;Created new prefabs for &quot;Airplane 1&quot; and &quot;Airport 1&quot; in the project. These include detailed components such as RectTransforms, MonoBehaviours, and rendering settings for both objects. This adds new functionality and assets to the project." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add prefabs for Airplane 1 and Airport 1&#10;&#10;Created new prefabs for &quot;Airplane 1&quot; and &quot;Airport 1&quot; in the project. These include detailed components such as RectTransforms, MonoBehaviours, and rendering settings for both objects. This adds new functionality and assets to the project." />
   </component>
 </project>

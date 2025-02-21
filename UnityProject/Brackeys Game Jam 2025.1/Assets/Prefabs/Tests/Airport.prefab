@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 1688701935338949234}
   - component: {fileID: 2524063002952147939}
   m_Layer: 0
-  m_Name: Airport 1
+  m_Name: Airport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,8 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCapacity: 20
   airportColor: 0
-  planes:
-  - {fileID: 0}
+  planes: []
   maxPlanes: 3
   landingSpots:
   - {fileID: 4848793716736849795}

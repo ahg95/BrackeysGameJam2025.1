@@ -39,7 +39,6 @@ namespace _1_Code
         [SerializeField] private UnityEngine.UI.Slider fuelSlider;
 
         [Header("Audio")]
-        [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClip explosionClip;
         
         private Tween _moveTween;
