@@ -70,14 +70,10 @@ namespace _1_Code
             HashSet<DestinationColor> existingColors = new HashSet<DestinationColor>();
 
             foreach (var airport in allAirports)
-            {
                 existingColors.Add(airport.airportColor);
-            }
 
             foreach (var plane in planes)
-            {
                 ProcessPlaneArrival(plane);
-            }
         }
 
         /// <summary>

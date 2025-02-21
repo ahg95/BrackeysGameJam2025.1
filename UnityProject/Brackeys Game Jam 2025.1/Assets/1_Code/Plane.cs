@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _1_Code.Abstracts;
 using _1_Code.Enums;
+using _Scripts.Events_system.Event_types;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +42,11 @@ namespace _1_Code
 
         [SerializeField] private Slider fuelSlider;
 
-        [Header("Audio")] [SerializeField] private AudioClip explosionClip;
+        [Header("Audio")] 
+        [SerializeField] private AudioClip explosionClip;
+        
+        [Header("Events")] 
+        [SerializeField] private VoidGameEvent onPlaneDestroyed;
 
         private Tween _moveTween;
 
@@ -199,7 +204,7 @@ namespace _1_Code
             _moveTween?.Kill();
             Debug.Log($"Plane {name} exploded!");
 
-            OnPlaneExploded?.Invoke(this);
+            onPlaneDestroyed?.Raise();
             gameObject.SetActive(false);
         }
 
