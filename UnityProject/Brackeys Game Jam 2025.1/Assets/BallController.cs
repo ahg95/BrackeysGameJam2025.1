@@ -1,7 +1,7 @@
-using Fusion;
-using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
+using Fusion;
+using Fusion.Sockets;
 using UnityEngine;
 
 public class BallController : NetworkBehaviour, INetworkRunnerCallbacks
@@ -11,27 +11,31 @@ public class BallController : NetworkBehaviour, INetworkRunnerCallbacks
 
     // Jump settings
     [SerializeField] private float jumpChargeRate = 10f; // How fast the jump force accumulates per second
-    [SerializeField] private float maxJumpForce = 20f;     // Maximum jump force
+    [SerializeField] private float maxJumpForce = 20f; // Maximum jump force
     [SerializeField] private float groundCheckDistance = 0.6f; // Distance for ground check
     [SerializeField] private LayerMask groundLayer; // Layers considered as ground
 
     // Internal jump state
-    [Header("Debug (READONLY)")]
-    public float _currentJumpForce = 0f;
+    [Header("Debug (READONLY)")] public float _currentJumpForce = 0f;
     public bool _isChargingJump = false;
-    public bool _grounded = false;
+    [Networked] public bool N_grounded { get; set; }
 
     public override void Spawned()
     {
         base.Spawned();
+        if (!Object.HasStateAuthority) return;
+        
         Runner.AddCallbacks(this);
     }
 
     public override void FixedUpdateNetwork()
     {
+        if (Object.HasStateAuthority) N_grounded = IsGrounded();
+        
         // Process movement input
         if (!GetInput(out BallInputData inputData)) return;
-        
+        inputData.Movement.Normalize();
+
         // Get the main camera
         Camera cam = Camera.main;
         if (cam == null)
@@ -49,12 +53,11 @@ public class BallController : NetworkBehaviour, INetworkRunnerCallbacks
         camRight.y = 0;
         camRight.Normalize();
 
-        Vector3 moveDirection = (camForward * inputData.Vertical + camRight * inputData.Horizontal).normalized;
-        rb.AddForce(moveDirection * moveSpeed, ForceMode.Force);
-        
+        Vector3 adjustedToCam = (camForward * inputData.Movement.y + camRight * inputData.Movement.x);
+        rb.AddForce(adjustedToCam * moveSpeed, ForceMode.Force);
+
         // Jump functionality
-        _grounded = IsGrounded();
-        if (_grounded)
+        if (N_grounded)
         {
             // Start charging jump when the player holds down space and not already charging
             if (inputData.JumpHeld && !_isChargingJump)
@@ -62,14 +65,14 @@ public class BallController : NetworkBehaviour, INetworkRunnerCallbacks
                 _isChargingJump = true;
                 _currentJumpForce = 0f;
             }
-            
+
             // If charging, increment the jump force up to a maximum
             if (_isChargingJump && inputData.JumpHeld)
             {
                 _currentJumpForce += jumpChargeRate * Runner.DeltaTime;
                 _currentJumpForce = Mathf.Min(_currentJumpForce, maxJumpForce);
             }
-            
+
             // If the jump key is released and we are charging, perform the jump
             if (_isChargingJump && inputData.JumpReleased)
             {
@@ -89,44 +92,99 @@ public class BallController : NetworkBehaviour, INetworkRunnerCallbacks
     // Simple ground check using a raycast downward
     private bool IsGrounded()
     {
-        bool isHit = Physics.Raycast(transform.position, Vector3.down, out var hitInfo, groundCheckDistance);
-       
-        // Debug visualization
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance, isHit ? Color.green : Color.red, 0.1f);
+        if (!Object.HasStateAuthority) return false;
+        bool isHit = Physics.Raycast(rb.position, Vector3.down, groundCheckDistance);
 
-        Debug.Log($"IsGrounded: {isHit}, Origin: {transform.position}, RayLength: {groundCheckDistance}, GroundLayer: {groundLayer}");
+        // Debug visualization
+        Debug.DrawLine(rb.position, transform.position + Vector3.down * groundCheckDistance,
+            isHit ? Color.green : Color.red, 0.1f);
+
+        /*Debug.Log(
+            $"IsGrounded: {isHit}, Origin: {rb.position}, RayLength: {groundCheckDistance}, GroundLayer: {groundLayer}");*/
         return isHit;
     }
-    
-    public void OnConnectedToServer(NetworkRunner runner) { }
-    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
-    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
-    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
-    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
+
+    public void OnConnectedToServer(NetworkRunner runner)
+    {
+    }
+
+    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
+    {
+    }
+
+    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
+    {
+    }
+
+    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
+    {
+    }
+
+    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
+    {
+    }
+
+    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+    {
+    }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         var inputData = new BallInputData
         {
-            Horizontal = Input.GetAxis("Horizontal"),
-            Vertical = Input.GetAxis("Vertical"),
+            Movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")),
             JumpHeld = Input.GetKey(KeyCode.Space),
             JumpReleased = Input.GetKeyUp(KeyCode.Space)
         };
+
         input.Set(inputData);
     }
 
-    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
-    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
-    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data) { }
-    public void OnSceneLoadDone(NetworkRunner runner) { }
-    public void OnSceneLoadStart(NetworkRunner runner) { }
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
-    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
+    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
+    {
+    }
+
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    {
+    }
+
+    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    {
+    }
+
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
+    }
+
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    {
+    }
+
+    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
+    {
+    }
+
+    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
+    {
+    }
+
+    public void OnSceneLoadDone(NetworkRunner runner)
+    {
+    }
+
+    public void OnSceneLoadStart(NetworkRunner runner)
+    {
+    }
+
+    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+    {
+    }
+
+    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
+    {
+    }
+
+    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
+    {
+    }
 }

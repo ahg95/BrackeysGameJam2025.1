@@ -8,7 +8,7 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined
 
     private Vector3 GetSpawnPosition(PlayerRef player)
     {
-        if (spawnPoints != null && spawnPoints.Length > 0)
+        if (spawnPoints is { Length: > 0 })
         {
             return spawnPoints[player.RawEncoded % spawnPoints.Length].position;
         }

@@ -27,7 +27,7 @@ public class AutoJoinLobby : MonoBehaviour, INetworkRunnerCallbacks
         DontDestroyOnLoad(gameObject);
     }
 
-    async void Start()
+    private async void Start()
     {
         try
         {
@@ -41,7 +41,7 @@ public class AutoJoinLobby : MonoBehaviour, INetworkRunnerCallbacks
             });
 
             var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex + 1); // next scene in build order
-            await networkRunner.LoadScene(scene, LoadSceneMode.Single, setActiveOnLoad: true, localPhysicsMode: LocalPhysicsMode.Physics3D);
+            await networkRunner.LoadScene(scene, LoadSceneMode.Single, setActiveOnLoad: true);
             networkRunner.ProvideInput = true;
         }
         catch (Exception e)

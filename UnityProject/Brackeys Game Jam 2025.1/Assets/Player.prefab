@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4301830382176557868}
   - component: {fileID: 7402552354281615207}
   - component: {fileID: 8530278088377779170}
+  - component: {fileID: 4064070341169610125}
   - component: {fileID: 7114522378981622671}
   - component: {fileID: 3624065524087193756}
   - component: {fileID: 2418951790249779280}
   - component: {fileID: 2495597843019345964}
-  - component: {fileID: 4064070341169610125}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -93,6 +93,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4064070341169610125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911549731494806374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a57ae4c4210a64c8400d4d01279226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 3624065524087193756}
+  moveSpeed: 2
+  jumpChargeRate: 10
+  maxJumpForce: 20
+  groundCheckDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _currentJumpForce: 0
+  _isChargingJump: 0
+  _N_grounded: 0
 --- !u!135 &7114522378981622671
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -122,9 +145,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911549731494806374}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 0.2
+  m_Drag: 0.2
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -178,35 +201,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 2470393149
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 786433
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2418951790249779280}
   - {fileID: 4064070341169610125}
+  - {fileID: 2418951790249779280}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &4064070341169610125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911549731494806374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10a57ae4c4210a64c8400d4d01279226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 3624065524087193756}
-  moveSpeed: 5
-  jumpChargeRate: 10
-  maxJumpForce: 20
-  groundCheckDistance: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _currentJumpForce: 0
-  _isChargingJump: 0
-  _grounded: 0
 --- !u!1 &2098819037329411359
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,8 +232,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098819037329411359}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20106587, y: -0, z: -0, w: 0.9795777}
-  m_LocalPosition: {x: 0, y: 3, z: -7}
+  m_LocalRotation: {x: 0.05298777, y: -0.5002652, z: 0.030690983, w: 0.8637044}
+  m_LocalPosition: {x: 5.008909, y: 0.7112045, z: -2.8733215}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,8 +301,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5775020995360670599}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20106587, y: -0, z: -0, w: 0.9795777}
-  m_LocalPosition: {x: 0, y: 3, z: -7}
+  m_LocalRotation: {x: 0.05298777, y: -0.5002652, z: 0.030690983, w: 0.8637044}
+  m_LocalPosition: {x: 5.008909, y: 0.7112045, z: -2.8733215}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -385,7 +385,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: -60.15959
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -395,7 +395,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 17.5
+    Value: 3.0488758
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
         LegacyInput: 
         LegacyGain: 1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0.2
         DecelTime: 0.2
@@ -518,7 +518,7 @@ MonoBehaviour:
         LegacyInput: 
         LegacyGain: 1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0
         DecelTime: 0
