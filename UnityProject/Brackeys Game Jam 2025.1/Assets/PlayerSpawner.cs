@@ -15,15 +15,16 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined
         return Vector3.zero; // Default spawn position
     }
 
-    public void PlayerJoined(PlayerRef player)
+    public void PlayerJoined(PlayerRef pid)
     {
         if (!Runner.IsServer) return;
         
         // Determine spawn position
-        var spawnPosition = GetSpawnPosition(player);
+        var spawnPosition = GetSpawnPosition(pid);
         var spawnRotation = Quaternion.identity;
 
         // Spawn player with ownership
-        Runner.Spawn(playerPrefab, spawnPosition, spawnRotation, player);
+        var player = Runner.Spawn(playerPrefab, spawnPosition, spawnRotation, pid);
+        player.AssignInputAuthority(pid);
     }
 }

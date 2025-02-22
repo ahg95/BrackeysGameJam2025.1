@@ -261,9 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5a1ff9dee264bfd829a39e6542dcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _physicsAuthority: 2
+  _physicsAuthority: 0
   _physicsTiming: 3
-  ClientPhysicsSimulation: 0
+  ClientPhysicsSimulation: 1
   DeltaTimeMultiplier: 1
   SetUnityFixedTimestep: 0
 --- !u!1 &1863671415
@@ -295,7 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee4678dfe9d06a4fbc48b5e05a0b0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyName: DefaultLobby
   maxPlayers: 4
   isRoomVisible: 1
   networkRunner: {fileID: 0}
