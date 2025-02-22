@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="Add event system for plane deselection and passenger updates&#10;&#10;Integrated a scriptable object-based event system, including `VoidGameEvent` and `IntGameEvent`, to improve modularity and scalability. Added `onNothingClicked` event to manage plane deselection and `passengersDisembarked` event for passenger updates. Updated related scripts and prefabs to utilize the new event system.">
+    <list default="true" id="82541285-6121-4635-ba8e-67abbef9df4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Brackeys Game Jam 2025.1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/GameInputHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/AirportInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/AirportInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/IInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/IInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/PlaneInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/PlaneInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Interaction/SelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Interaction/SelectionManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Abstracts/BasePassengerHolder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Abstracts/BasePassengerHolder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Airport.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Code/Plane.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,6 +133,7 @@
       <workItem from="1740139191114" duration="6534000" />
       <workItem from="1740146975259" duration="5112000" />
       <workItem from="1740154053356" duration="3527000" />
+      <workItem from="1740164702100" duration="1126000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor scenes and assets structure&#10;&#10;Deleted outdated scenes and materials while migrating key files to a new structured directory. Ensured that essential assets like the reflection probe and unity material ball were preserved under the new `_Scenes` folder.">
       <option name="closed" value="true" />

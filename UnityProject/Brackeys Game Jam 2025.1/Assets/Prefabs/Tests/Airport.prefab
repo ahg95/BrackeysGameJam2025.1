@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 3086405076070176845}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: -1}
+  m_LocalPosition: {x: 1.3899994, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -745,7 +745,7 @@ Transform:
   m_GameObject: {fileID: 8494736031369363133}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: -1}
+  m_LocalPosition: {x: -1.3600001, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -801,14 +801,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b328c2097b48328c23f9dcc2d2cccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 5
+  maxPassengerCapacity: 3
   airportColor: 0
   passengerRepresentations:
   - {fileID: 8466885859825538011}
   - {fileID: 2082268151224708487}
   - {fileID: 312840173203312771}
   planes: []
-  maxPlanes: 3
+  maxPlaneCapacity: 3
   landingSpots:
   - {fileID: 4848793716736849795}
   - {fileID: 9010938968824036237}

@@ -18,8 +18,8 @@ namespace _1_Code
         [SerializeField] private List<DestinationColor> passengerColors = new();
         [SerializeField] private Renderer[] passengerRepresentations;
         private int _passengerCount = 0;
-        public bool IsFull => _passengerCount >= maxCapacity;
-        public int RemainingCapacity => maxCapacity - _passengerCount;
+        public bool IsFull => _passengerCount >= maxPassengerCapacity;
+        public int RemainingCapacity => maxPassengerCapacity - _passengerCount;
 
         // Tracking the current airport; if null the plane is flying.
         public Airport CurrentAirport { get; private set; }
@@ -141,7 +141,7 @@ namespace _1_Code
         // Adds passengers if there is enough capacity.
         public override bool AddPassengers(DestinationColor passengerColor, int count = 1)
         {
-            if (_passengerCount + count > maxCapacity)
+            if (_passengerCount + count > maxPassengerCapacity)
                 return false;
 
             if (!_passengers.TryAdd(passengerColor, count))
@@ -231,7 +231,7 @@ namespace _1_Code
 
         private void OnValidate()
         {
-            if (passengerRepresentations != null && passengerRepresentations.Length != maxCapacity)
+            if (passengerRepresentations != null && passengerRepresentations.Length != maxPassengerCapacity)
             {
                 Debug.LogWarning(
                     "The number of renderers in passengerRepresentations should match the maxCapacity of the plane.");

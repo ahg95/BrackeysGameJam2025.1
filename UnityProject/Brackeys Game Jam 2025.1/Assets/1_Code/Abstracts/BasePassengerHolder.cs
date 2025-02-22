@@ -1,14 +1,16 @@
 using _1_Code.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _1_Code.Abstracts
 {
     public abstract class BasePassengerHolder : MonoBehaviour
     {
+        public int MaxPassengerCapacity => maxPassengerCapacity;
         /// <summary>
         /// Represents the maximum number of passengers a passenger holder can accommodate.
         /// </summary>
-        [SerializeField] protected int maxCapacity = 3;
+        [SerializeField] protected int maxPassengerCapacity = 3;
 
         /// <summary>
         /// Adds passengers of a specified color to the passenger holder,

@@ -4,6 +4,7 @@ using _1_Code.Abstracts;
 using _1_Code.Enums;
 using _Scripts.Events_system.Event_types;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _1_Code
@@ -15,8 +16,10 @@ namespace _1_Code
         [SerializeField] private DestinationColor airportColor = DestinationColor.Blue;
         [SerializeField] private Renderer[] passengerRepresentations;
         [SerializeField] private List<Plane> planes = new List<Plane>();
-        [SerializeField] private int maxPlanes = 3; // Maximum airport plane capacity (default is 3).
+        [SerializeField] private int maxPlaneCapacity = 3; // Maximum airport plane capacity (default is 3).
 
+        public int CurrentPlaneCount => planes.Count;
+        
         [Tooltip(
             "Designated landing spots to prevent overlapping planes. The size of this array should be at least equal to Max Planes.")]
         [SerializeField]
@@ -36,7 +39,7 @@ namespace _1_Code
             if (startWithRandomPassengers) PopulateAirport();
         }
 
-        private void Start() => PopulatePlanes();
+        //private void Start() => PopulatePlanes();
 
         // Populates the airport queue with random passengers using the AddPassengers method.
         private void PopulateAirport()
@@ -47,7 +50,7 @@ namespace _1_Code
             foreach (var airport in allAirports)
                 existingColors.Add(airport.airportColor);
 
-            for (var i = 0; i < maxCapacity; i++)
+            for (var i = 0; i < maxPassengerCapacity; i++)
             {
                 DestinationColor randomPassengerColor;
                 do
@@ -70,12 +73,6 @@ namespace _1_Code
         /// </summary>
         private void PopulatePlanes()
         {
-            Airport[] allAirports = FindObjectsByType<Airport>(FindObjectsSortMode.None);
-            HashSet<DestinationColor> existingColors = new HashSet<DestinationColor>();
-
-            foreach (var airport in allAirports)
-                existingColors.Add(airport.airportColor);
-
             foreach (var plane in planes)
                 ProcessPlaneArrival(plane);
         }
@@ -173,7 +170,7 @@ namespace _1_Code
         /// Checks if the airport has space for more planes.
         /// </summary>
         /// <returns>True if the airport can hold more planes, false otherwise.</returns>
-        private bool HasSpace() => planes.Count < maxPlanes;
+        private bool HasSpace() => planes.Count < maxPlaneCapacity;
 
         /// <summary>
         /// Updates the positions of planes to snap them to their designated landing spots.
@@ -208,14 +205,14 @@ namespace _1_Code
         private void OnValidate()
         {
             // Ensures that maxPlanes is at least 1 (sensible minimum).
-            if (maxPlanes < 1)
+            if (maxPlaneCapacity < 1)
             {
-                maxPlanes = 1;
+                maxPlaneCapacity = 1;
                 Debug.LogWarning("Max planes for an airport cannot be less than 1. Setting to 1.");
             }
 
             // Optionally, warn if there are not enough landing spots for the maximum planes.
-            if (landingSpots != null && landingSpots.Length < maxPlanes)
+            if (landingSpots != null && landingSpots.Length < maxPlaneCapacity)
             {
                 Debug.LogWarning(
                     "The number of landing spots is less than the maximum planes allowed. Some planes may overlap.");
@@ -230,7 +227,7 @@ namespace _1_Code
         /// </summary>
         public override bool AddPassengers(DestinationColor passengerColor, int count = 1)
         {
-            if (_passengerQueue.Count + count > maxCapacity)
+            if (_passengerQueue.Count + count > maxPassengerCapacity)
                 return false;
 
             for (var i = 0; i < count; i++)
